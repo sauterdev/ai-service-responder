@@ -1,7 +1,13 @@
 import React from 'react'
 
 const RightSide = () => {
-    return <div className="flex-1 bg-slate-400 p-4">RightSide</div>
+    return (
+        <div className="flex-1 bg-slate-500 border-r-2 border-slate-700 p-4">
+            <h1 className="text-center text-3xl underline pb-3">
+                Generated Response
+            </h1>
+        </div>
+    )
 }
 
 export default RightSide

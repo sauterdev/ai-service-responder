@@ -8,7 +8,11 @@ const FormField = () => {
         watch,
         formState: { errors },
     } = useForm()
-    const onSubmit = (data) => console.log(data)
+
+    const onSubmit = async (data) => {
+        console.log(data)
+        const response = await.fetch()
+    }
 
     console.log(watch('example')) // watch input value by passing the name of it
 
@@ -22,7 +26,7 @@ const FormField = () => {
                 {/* register your input into the hook by invoking the "register" function */}
                 <div>
                     <label
-                        className="block text-gray-700 text-sm font-bold mb-2"
+                        className="block text-gray-700 text-sm font-bold mb-1"
                         htmlFor="name"
                     >
                         Enter Name
@@ -39,7 +43,7 @@ const FormField = () => {
                 {/* include validation with required or other standard HTML validation rules */}
                 <div>
                     <label
-                        className="block text-gray-700 text-sm font-bold mb-2"
+                        className="block text-gray-700 text-sm font-bold mb-1 pt-2"
                         htmlFor="email"
                     >
                         Enter Email
@@ -55,7 +59,7 @@ const FormField = () => {
                 </div>
                 <div>
                     <label
-                        className="block text-gray-700 text-sm font-bold mb-2"
+                        className="block text-gray-700 text-sm font-bold mb-1 pt-2"
                         htmlFor="accountNum"
                     >
                         Enter Account
@@ -71,10 +75,10 @@ const FormField = () => {
                 </div>
                 <div>
                     <label
-                        className="block text-gray-700 text-sm font-bold mb-2"
+                        className="block text-gray-700 text-sm font-bold mb-1 pt-2"
                         htmlFor="serviceRequest"
                     >
-                        Enter Email
+                        Enter Service Request
                     </label>
                     <textarea
                         rows="10"
@@ -88,14 +92,15 @@ const FormField = () => {
                 </div>
                 {/* errors will return when field validation fails  */}
                 {errors.exampleRequired && <span>This field is required</span>}
-
-                <button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                    type="submit"
-                >
-                    {' '}
-                    Submit
-                </button>
+                <div className="flex justify-center">
+                    <button
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        type="submit"
+                    >
+                        {' '}
+                        Submit
+                    </button>
+                </div>
             </form>
         </div>
     )
