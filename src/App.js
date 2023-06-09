@@ -1,11 +1,14 @@
-import "./App.css";
+import './App.css'
+import LeftSide from './components/LeftSide/LeftSide'
+import RightSide from './components/RightSide/RightSide'
 
 const App = () => {
-  return (
-    <div className="App">
-      <h1 className="text-3xl font-bold underline">Hello</h1>
-    </div>
-  );
-};
+    return (
+        <div className="min-h-screen flex">
+            <LeftSide />
+            <RightSide />
+        </div>
+    )
+}
 
-export default App;
+export default App
