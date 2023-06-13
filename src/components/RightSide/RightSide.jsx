@@ -1,6 +1,8 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 
-const RightSide = () => {
+const RightSide = ({ openAiResponse }) => {
+    console.log(openAiResponse)
     return (
         <div className="flex-1 bg-slate-500 border-r-2 border-slate-700 p-4">
             <h1 className="text-center text-3xl underline pb-3">

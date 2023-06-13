@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import { useForm } from 'react-hook-form'
 
-const FormField = () => {
+const FormField = ({ setOpenAiResponse }) => {
     const {
         register,
         handleSubmit,
@@ -9,9 +10,27 @@ const FormField = () => {
         formState: { errors },
     } = useForm()
 
-    const onSubmit = async (data) => {
-        console.log(data)
-        const response = await.fetch()
+    const onSubmit = async (e) => {
+        const response = await fetch('http://localhost:5000', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                prompt: e.serviceRequest,
+            }),
+        })
+
+        if (response.ok) {
+            const data = await response.json()
+            const parsedData = data.b0t.trim()
+
+            setOpenAiResponse(parsedData)
+        } else {
+            const err = await response.text()
+            console.log('something went wrong')
+            alert(err)
+        }
     }
 
     console.log(watch('example')) // watch input value by passing the name of it
