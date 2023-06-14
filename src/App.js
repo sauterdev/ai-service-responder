@@ -5,11 +5,19 @@ import RightSide from './components/RightSide/RightSide'
 
 const App = () => {
     const [openAiResponse, setOpenAiResponse] = useState('')
-    console.log(openAiResponse)
+    const [emailInfo, setEmailInfo] = useState({})
     return (
         <div className="min-h-screen flex">
-            <LeftSide setOpenAiResponse={setOpenAiResponse} />
-            <RightSide openAiResponse={openAiResponse} />
+            <LeftSide
+                setOpenAiResponse={setOpenAiResponse}
+                setEmailInfo={setEmailInfo}
+                openAiResponse={openAiResponse}
+            />
+            <RightSide
+                openAiResponse={openAiResponse}
+                emailInfo={emailInfo}
+                setEmailInfo={setEmailInfo}
+            />
         </div>
     )
 }

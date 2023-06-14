@@ -1,36 +1,62 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-const FormField = ({ setOpenAiResponse }) => {
+const FormField = ({ setOpenAiResponse, setEmailInfo }) => {
     const {
         register,
         handleSubmit,
         watch,
+        reset,
         formState: { errors },
     } = useForm()
 
+    const [isSubmitting, setIsSubmitting] = useState(false)
+
     const onSubmit = async (e) => {
-        const response = await fetch('http://localhost:5000', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                prompt: e.serviceRequest,
-            }),
-        })
+        console.log(e)
+        setIsSubmitting(true)
 
-        if (response.ok) {
-            const data = await response.json()
-            const parsedData = data.b0t.trim()
+        try {
+            const response = await fetch('http://localhost:5000', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    prompt: e.serviceRequest,
+                }),
+            })
 
-            setOpenAiResponse(parsedData)
-        } else {
-            const err = await response.text()
-            console.log('something went wrong')
-            alert(err)
+            if (response.ok) {
+                const data = await response.json()
+                const parsedData = data.b0t.trim()
+
+                setOpenAiResponse(parsedData)
+            } else {
+                const err = await response.text()
+                console.log('something went wrong')
+                alert(err)
+            }
+
+            reset()
+        } catch (error) {
+            console.error('Error:', error)
+        } finally {
+            setIsSubmitting(false)
         }
+
+        let updatedEmail = {
+            name: `${e.name}`,
+            email: `${e.email}`,
+            accountNum: `${e.accountNum}`,
+            serviceRequest: `${e.serviceRequest}`,
+        }
+
+        setEmailInfo((emailInfo) => ({
+            ...emailInfo,
+            ...updatedEmail,
+        }))
     }
 
     console.log(watch('example')) // watch input value by passing the name of it
@@ -115,9 +141,9 @@ const FormField = ({ setOpenAiResponse }) => {
                     <button
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                         type="submit"
+                        disabled={isSubmitting}
                     >
-                        {' '}
-                        Submit
+                        {isSubmitting ? 'Submitting...' : 'Submit'}
                     </button>
                 </div>
             </form>
